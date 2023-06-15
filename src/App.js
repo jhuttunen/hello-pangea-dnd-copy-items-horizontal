@@ -37,17 +37,18 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
+// Styled components library is used to create elements
 const Content = styled.div`
-  margin-right: 200px;
+  margin-left: 120px;
 `;
 
 const Item = styled.div`
   display: flex;
   user-select: none;
   padding: 0.5rem;
-  margin: 0 0 0.5rem 0;
-  align-items: flex-start;
-  align-content: flex-start;
+  margin: 0 0.5rem 0.5rem 0;
+  align-items: center;
+  align-content: center;
   line-height: 1.5;
   border-radius: 3px;
   background: #fff;
@@ -60,7 +61,7 @@ const Clone = styled(Item)`
   }
 `;
 
-const Handle = styled.div`
+/*const Handle = styled.div`
   display: flex;
   align-items: center;
   align-content: center;
@@ -72,7 +73,7 @@ const Handle = styled.div`
   background: #fff;
   border-right: 1px solid #ddd;
   color: #000;
-`;
+`;*/
 
 const List = styled.div`
   border: 1px
@@ -80,24 +81,23 @@ const List = styled.div`
   background: #fff;
   padding: 0.5rem 0.5rem 0;
   border-radius: 3px;
-  flex: 0 0 150px;
+  flex: 0 0 100px;
   font-family: sans-serif;
 `;
 
 const Kiosk = styled(List)`
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
-  width: 200px;
 `;
 
 const Container = styled(List)`
   margin: 0.5rem 0.5rem 0.5rem;
   display: flex;
-  min-height:3rem;
-  border:0;
+  min-height: 3rem;
   background-color: #eee;
+  border: 0;
 `;
 
 const Notice = styled.div`
@@ -136,47 +136,48 @@ const grid = 8;
 const ITEMS = [
   {
     id: uuid(),
-    content: "Text Field"
+    content: "Text Field",
   },
   {
     id: uuid(),
-    content: "Email"
+    content: "Email",
   },
   {
     id: uuid(),
-    content: "File"
+    content: "File",
   },
   {
     id: uuid(),
-    content: "Radio"
+    content: "Radio",
   },
   {
     id: uuid(),
-    content: "Select"
+    content: "Select",
   },
   {
     id: uuid(),
-    content: "Checkbox"
+    content: "Checkbox",
   },
   {
     id: uuid(),
-    content: "Button"
+    content: "Button",
   },
   {
     id: uuid(),
-    content: "Number"
+    content: "Number",
   },
   {
     id: uuid(),
-    content: "Textarea"
-  }
+    content: "Textarea",
+  },
 ];
 
 const App = (props) => {
   const [state, setState] = useState({
-    [uuid()]: []
+    [uuid()]: [],
   });
 
+  // When dragging ends choose what happens
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -184,7 +185,6 @@ const App = (props) => {
     if (!destination) {
       return;
     }
-
     switch (source.droppableId) {
       case destination.droppableId:
         setState((prevState) => ({
@@ -193,7 +193,7 @@ const App = (props) => {
             state[source.droppableId],
             source.index,
             destination.index
-          )
+          ),
         }));
         break;
       case "ITEMS":
@@ -204,7 +204,7 @@ const App = (props) => {
             prevState[destination.droppableId],
             source,
             destination
-          )
+          ),
         }));
         break;
       default:
@@ -215,7 +215,7 @@ const App = (props) => {
             prevState[destination.droppableId],
             source,
             destination
-          )
+          ),
         }));
         break;
     }
@@ -231,6 +231,7 @@ const App = (props) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="ITEMS" isDropDisabled={true}>
         {(provided, snapshot) => (
+          // Kiosk includes the dragable items available to copy
           <Kiosk
             ref={provided.innerRef}
             isDraggingOver={snapshot.isDraggingOver}
@@ -253,6 +254,7 @@ const App = (props) => {
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
           </Kiosk>
         )}
       </Droppable>
@@ -264,10 +266,10 @@ const App = (props) => {
               d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
             />
           </svg>
-          <ButtonText>Add List</ButtonText>
+          <ButtonText>Add Row</ButtonText>
         </Button>
         {Object.keys(state).map((list, i) => (
-          // Dropzone item direction is defined horizontal here 
+          // Dropzone item direction is defined horizontal here
           <Droppable key={list} droppableId={list} direction="horizontal">
             {(provided, snapshot) => (
               <Container
@@ -285,17 +287,10 @@ const App = (props) => {
                           <Item
                             ref={provided.innerRef}
                             {...provided.draggableProps}
+                            {...provided.dragHandleProps}
                             isDragging={snapshot.isDragging}
                             style={provided.draggableProps.style}
                           >
-                            <Handle {...provided.dragHandleProps}>
-                              <svg width="24" height="24" viewBox="0 0 24 24">
-                                <path
-                                  fill="currentColor"
-                                  d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
-                                />
-                              </svg>
-                            </Handle>
                             {item.content}
                           </Item>
                         )}
