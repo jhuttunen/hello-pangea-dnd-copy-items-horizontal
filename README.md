@@ -1,6 +1,6 @@
 # Drag and drop copy items horizontal demo with @hello-pangea/dnd
  
-The [@hello-pangea/dnd](https://www.npmjs.com/package/@hello-pangea/dnd) used in this demo is originally forked from [react-beautiful-dnd](https://www.npmjs.com /package/react-beautiful-dnd) and is a community-driven open source drag-and-drop library for React. 
+The [@hello-pangea/dnd](https://www.npmjs.com/package/@hello-pangea/dnd) used in this demo is originally forked from [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd) and is a community-driven open source drag-and-drop library for React. 
 
 In practice, these are almost identical libraries, but Atlassian, the developer company of the original react-beautiful-dnd (e.g. Trello, Confluence, etc.) stopped actively developing the library, while @hello-pangea/dnd will continue to be actively developed.
 
