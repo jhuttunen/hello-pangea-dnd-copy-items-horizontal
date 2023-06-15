@@ -39,7 +39,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
 // Styled components library is used to create elements
 const Content = styled.div`
-  margin-left: 120px;
+  margin-left: 100px;
 `;
 
 const Item = styled.div`
@@ -133,49 +133,24 @@ const ButtonText = styled.div`
 
 const grid = 8;
 
-const ITEMS = [
-  {
-    id: uuid(),
-    content: "Text Field",
-  },
-  {
-    id: uuid(),
-    content: "Email",
-  },
-  {
-    id: uuid(),
-    content: "File",
-  },
-  {
-    id: uuid(),
-    content: "Radio",
-  },
-  {
-    id: uuid(),
-    content: "Select",
-  },
-  {
-    id: uuid(),
-    content: "Checkbox",
-  },
-  {
-    id: uuid(),
-    content: "Button",
-  },
-  {
-    id: uuid(),
-    content: "Number",
-  },
-  {
-    id: uuid(),
-    content: "Textarea",
-  },
-];
+// Create some dummy data to drag
+const createItems = () => {
+  let items = [];
+  for (let i=1; i<=10; i++) {
+    items[i] = {
+      id: uuid(),
+      content: "Item" + i
+    }
+  }
+  return items;
+}
 
 const App = (props) => {
   const [state, setState] = useState({
-    [uuid()]: [],
+    [uuid()]: []
   });
+
+  const ITEMS = createItems();
 
   // When dragging ends choose what happens
   const onDragEnd = (result) => {
