@@ -93,7 +93,11 @@ const Kiosk = styled(List)`
 `;
 
 const Container = styled(List)`
-  margin: 0.5rem 0.5rem 1.5rem;
+  margin: 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  min-height:3rem;
+  border:0;
+  background-color: #eee;
 `;
 
 const Notice = styled.div`
@@ -263,7 +267,8 @@ const App = (props) => {
           <ButtonText>Add List</ButtonText>
         </Button>
         {Object.keys(state).map((list, i) => (
-          <Droppable key={list} droppableId={list}>
+          // Dropzone item direction is defined horizontal here 
+          <Droppable key={list} droppableId={list} direction="horizontal">
             {(provided, snapshot) => (
               <Container
                 ref={provided.innerRef}
